@@ -17,7 +17,8 @@ ExecStart=/opt/bin/hyperkube apiserver \
             $KUBE_ALLOW_PRIV \
             $KUBE_SERVICE \
             $KUBE_ADMISSION_CONTROL \
-            $KUBE_API_IP
+            $KUBE_API_IP \
+            $KUBE_API_ARGS
 Restart=on-failure
 Type=notify
 LimitNOFILE=65536

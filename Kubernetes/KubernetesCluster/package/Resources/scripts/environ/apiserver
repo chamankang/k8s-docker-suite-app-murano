@@ -21,3 +21,9 @@ KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,L
 
 # The IP address on which to advertise the apiserver to cluster members
 KUBE_API_IP="--advertise-address=%%MASTER_IP%%"
+
+KUBE_API_ARGS="--secure-port=6443 \
+  --tls-cert-file=/srv/kubernetes/server.cert \
+  --tls-private-key-file=/srv/kubernetes/server.key \
+  --client-ca-file=/srv/kubernetes/ca.crt \
+  --service-account-key-file=/srv/kubernetes/server.key"

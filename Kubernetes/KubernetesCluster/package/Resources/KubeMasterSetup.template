@@ -19,9 +19,15 @@ Parameters:
   ip: $ip
 
 Body: |
+  makeCACert('{0} {1}'.format(args.ip, 'IP:10.32.0.1,DNS:kubernetes.default.svc'))
   return setup('{0} {1}'.format(args.name, args.ip)).stdout
 
 Scripts:
+  makeCACert:
+    Type: Application
+    Version: 1.0.0
+    EntryPoint: make-ca-cert.sh
+
   setup:
     Type: Application
     Version: 1.0.0

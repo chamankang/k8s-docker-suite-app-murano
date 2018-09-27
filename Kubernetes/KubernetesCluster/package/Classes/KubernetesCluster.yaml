@@ -116,6 +116,10 @@ Methods:
                 FromPort: 8080
                 IpProtocol: tcp
                 External: $.masterNode.instance.assignFloatingIp
+              - ToPort: 6443
+                FromPort: 6443
+                IpProtocol: tcp
+                External: false
               - ToPort: 2380
                 FromPort: 2380
                 IpProtocol: tcp

@@ -30,3 +30,6 @@ KUBE_NAME="--cluster-name=kubernetes"
 
 # CIDR Range for Pods in cluster
 KUBE_CIDR="--cluster-cidr=10.200.0.0/24"
+
+KUBE_CONTROLLER_MANAGER_ARGS="--service-account-private-key-file=/srv/kubernetes/server.key \
+  --root-ca-file=/srv/kubernetes/ca.crt"
