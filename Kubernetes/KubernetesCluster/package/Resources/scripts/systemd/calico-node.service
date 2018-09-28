@@ -8,7 +8,8 @@ After=docker.service
 User=root
 EnvironmentFile=/etc/network-environment
 PermissionsStartOnly=true
-ExecStart=/usr/bin/calicoctl node --ip=%%IP%% --detach=false
+ExecStart=/usr/bin/calicoctl node run --ip=%%IP%% --init-system
+ExecStop=/usr/bin/docker stop calico-node
 Restart=always
 RestartSec=10
 

@@ -3,7 +3,7 @@
 # $1 - NAME
 # $2 - IP
 # $3 - MASTER_IP
-# $4 - USE_CALICO
+# $4 - USE_FLANNEL
 # $5 - ENABLE_DNS
 
 mkdir -p /var/run/murano-kubernetes
@@ -15,8 +15,9 @@ if [[ $(which systemctl) ]]; then
   sed -i.bak "s/%%MASTER_IP%%/$3/g" environ/kubelet
   sed -i.bak "s/%%IP%%/$2/g" environ/kubelet
 
+  KUBELET_ARGS=""
   if [ "$4" == "False" ]; then
-    echo KUBELET_ARGS=\"--network-plugin=cni --network-plugin-dir=/etc/cni/net.d\" >> environ/kubelet
+    echo KUBELET_ARGS=\"--network-plugin=cni --cni-conf-dir=/etc/cni/net.d --cni-bin-dir=/opt/cni/bin\" >> environ/kubelet
   fi
 
   if [ "$5" == "True" ]; then
@@ -24,7 +25,7 @@ if [[ $(which systemctl) ]]; then
     echo KUBELET_DNS_DOMAIN=\"--cluster-domain=kubernetes.local\" >> environ/kubelet
 
     if [ "$4" == "False" ]; then
-      echo KUBE_PROXY_ARGS=\"--proxy-mode=iptables --masquerade-all=true\" > /etc/kubernetes/proxy
+      echo KUBE_PROXY_ARGS=\"--proxy-mode=iptables\" > /etc/kubernetes/proxy
     fi
   fi
 

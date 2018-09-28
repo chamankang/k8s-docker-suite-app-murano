@@ -7,9 +7,14 @@
 
 # Install Calico on worker
 mkdir -p /opt/cni/bin
-cp /opt/copy/cni/bin/* /opt/cni/bin/
-ln -s /opt/bin/calicoctl /usr/bin/calicoctl
-docker load < /opt/copy/calico-node.tar
+wget -N -P /opt/cni/bin https://github.com/projectcalico/cni-plugin/releases/download/v1.8.3/calico
+wget -N -P /opt/cni/bin https://github.com/projectcalico/cni-plugin/releases/download/v1.8.3/calico-ipam
+chmod +x /opt/cni/bin/calico /opt/cni/bin/calico-ipam
+wget -N -P /usr/bin  https://github.com/projectcalico/calicoctl/releases/download/v1.2.1/calicoctl
+chmod +x /usr/bin/calicoctl
+wget https://github.com/containernetworking/cni/releases/download/v0.3.0/cni-v0.3.0.tgz
+tar -zxvf cni-v0.3.0.tgz
+cp loopback /opt/cni/bin/
 
 sed -i.bak "s/%%MASTER_IP%%/$1/g" environ/network-environment
 sed -i.bak "s/%%IP%%/$1/g" environ/network-environment

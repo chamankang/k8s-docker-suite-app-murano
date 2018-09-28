@@ -28,6 +28,7 @@ Scripts:
     Files:
       - systemd/calico-node.service
       - environ/network-environment
+      - 10-calico.conf
     Options:
       captureStdout: true
       captureStderr: true
