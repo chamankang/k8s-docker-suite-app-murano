@@ -17,7 +17,7 @@ KUBE_API_ADDRESS="--insecure-bind-address=0.0.0.0"
 KUBE_ETCD_SERVERS="--etcd-servers=http://127.0.0.1:4001"
 
 # Default admission control policies
-KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ResourceQuota"
+KUBE_ADMISSION_CONTROL="--admission-control=NamespaceLifecycle,NamespaceExists,LimitRanger,SecurityContextDeny,ServiceAccount,ResourceQuota"
 
 # The IP address on which to advertise the apiserver to cluster members
 KUBE_API_IP="--advertise-address=%%MASTER_IP%%"
