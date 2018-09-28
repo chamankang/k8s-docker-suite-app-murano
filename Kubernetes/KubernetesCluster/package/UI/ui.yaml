@@ -19,7 +19,7 @@ Templates:
       ?:
         type: io.murano.resources.LinuxMuranoInstance
       name: generateHostname($.nodesConfiguration.unitNamingPattern, 1)
-      flavor: $.instanceConfiguration.flavor
+      flavor: $.instanceConfiguration.masterFlavor
       image: $.instanceConfiguration.image
       assignFloatingIp: $.nodesConfiguration.assignFloatingIP
       keyname: $.instanceConfiguration.keyPair
@@ -32,7 +32,7 @@ Templates:
       ?:
         type: io.murano.resources.LinuxMuranoInstance
       name: generateHostname($.nodesConfiguration.unitNamingPattern, $index + 1)
-      flavor: $.instanceConfiguration.flavor
+      flavor: $.instanceConfiguration.minionFlavor
       image: $.instanceConfiguration.image
       assignFloatingIp: $.nodesConfiguration.assignFloatingIP
       keyname: $.instanceConfiguration.keyPair
@@ -47,7 +47,7 @@ Templates:
       ?:
         type: io.murano.resources.LinuxMuranoInstance
       name: generateHostname($.nodesConfiguration.gatewayNamingPattern, $index)
-      flavor: $.instanceConfiguration.flavor
+      flavor: $.instanceConfiguration.masterFlavor
       image: $.instanceConfiguration.image
       assignFloatingIp: $.nodesConfiguration.assignGatewayFloatingIP
       keyname: $.instanceConfiguration.keyPair
@@ -222,9 +222,20 @@ Forms:
           required: false
           hidden: true
           description: Specify some instance parameters on which application would be created.
-        - name: flavor
+        - name: masterFlavor
           type: flavor
-          label: Instance flavor
+          label: Master Instance flavor
+          description: >-
+            Select one of the existing flavors. Consider that application performance
+            depends on this parameter.
+          required: false
+          requirements:
+            min_disk: 10
+            min_memory_mb: 1024
+            min_vcpus: 1
+        - name: minionFlavor
+          type: flavor
+          label: Minion Instance flavor
           description: >-
             Select one of the existing flavors. Consider that application performance
             depends on this parameter.
